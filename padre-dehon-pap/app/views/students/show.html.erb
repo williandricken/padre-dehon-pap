@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @student.name %>
+</p>
+
+<p>
+  <strong>Data de nascimento:</strong>
+  <%= @student.birth_date %>
+</p>
+
+<p>
+  <strong>Cidade de nascimento:</strong>
+  <%= @student.place_of_birth %>
+</p>
+
+<p>
+  <strong>Ano letivo:</strong>
+  <%= @student.school_year %>
+</p>
+
+<p>
+  <strong>Data de início:</strong>
+  <%= @student.start_date %>
+</p>
+
+<p>
+  <strong>Comportamentos:</strong>
+  <% @student.behaviors.each do |sb|%>
+  <%= sb.description %>
+  <%= sb.description === @student.behaviors.last.description ? "." : " ," %>
+  <% end %>
+</p>
+
+<% if @student.another_behavior.present? %>
+<p>
+  <strong>Outro comportamento:</strong>
+  <%= @student.another_behavior %>
+</p>
+<% end %>
+
+<p>
+  <strong>Responsáveis:</strong> <br>
+  <% @student.responsibles.each do |r|%>
+  <p><strong>Nome: </strong><%= r.name %></p>  
+  <p><strong>RG: </strong><%= r.rg %></p>  
+  <p><strong>CPF: </strong><%= r.cpf %></p>  
+  <%= link_to 'Mais informações deste responsável', r %>
+  <% end %>
+</p>
+
+<%= link_to 'Editar', edit_student_path(@student) %> |
+<%= link_to 'Voltar', students_path %>

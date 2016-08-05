@@ -1,0 +1,48 @@
+<%= form_for(@student) do |f| %>
+  <% if @student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% @student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Nome:" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label "Data de nascimento:" %><br>
+    <%= f.text_field :birth_date %>
+  </div>
+  <div class="field">
+    <%= f.label "Cidade de nascimento" %><br>
+    <%= f.text_field :place_of_birth %>
+  </div>
+  <div class="field">
+    <%= f.label "Ano letivo:" %><br>
+    <%= f.select :school_year, (Time.zone.now.year - 5)..(Time.zone.now.year + 5)%>
+  </div>
+  <div class="field">
+    <%= f.label "Data de início:" %><br>
+    <%= f.text_field :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label "Comportamentos:" %><br>
+    <% Behavior.all.each do |b| %>
+      <%= f.check_box :behavior_ids, {multiple: true}, b.id, nil%>
+      <%= f.label b.description%>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label "Outro comportamento:" %><br>
+    <%= f.text_field :another_behavior %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Criar aluno"%>
+  </div>
+<% end %>

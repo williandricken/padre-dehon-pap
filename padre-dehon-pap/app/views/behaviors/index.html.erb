@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lista de comportamentos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descrição</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @behaviors.each do |behavior| %>
+      <tr>
+        <td><%= behavior.description %></td>
+        <td><%= link_to 'Exibir', behavior %></td>
+        <td><%= link_to 'Editar', edit_behavior_path(behavior) %></td>
+        <td><%= link_to 'Deletar', behavior, method: :delete, data: { confirm: 'Deseja deletar este comportamento?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Novo comportamento', new_behavior_path %>

@@ -1,0 +1,1 @@
+json.extract! @behavior, :id, :description, :created_at, :updated_at

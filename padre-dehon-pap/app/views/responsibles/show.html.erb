@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome do Responsável:</strong>
+  <%= @responsible.name %>
+</p>
+
+<p>
+  <strong>RG:</strong>
+  <%= @responsible.rg %>
+</p>
+
+<p>
+  <strong>CPF:</strong>
+  <%= @responsible.cpf %>
+</p>
+
+<p>
+  <strong>Escolaridade:</strong>
+  <%= @responsible.schooling %>
+</p>
+
+<% if @responsible.students.present? %>
+<p><strong>Alunos relacionados:</strong></p>
+<% @responsible.students.each do |s|%>
+<p>Nome do aluno: <%= s.name %></p>
+<p>Cidade do aluno: <%= s.place_of_birth %></p>
+<p>Ano letivo do aluno: <%= s.school_year %></p>
+<% end %>
+<% end %>
+
+<%= link_to 'Edit', edit_responsible_path(@responsible) %> |
+<%= link_to 'Back', responsibles_path %>
