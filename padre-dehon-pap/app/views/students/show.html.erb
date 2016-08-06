@@ -26,6 +26,17 @@
 </p>
 
 <p>
+  <strong>Ficha médica:</strong>
+  <% @student.medic_info.diseases.each do |d|%>
+  <%= d.name%>
+  <%end%>
+  <%= @student.medic_info.surgery%>
+  <%= @student.medic_info.treatment%>
+  <%= @student.medic_info.allergic%>
+  <%= @student.medic_info.intolerant%>
+</p>
+
+<p>
   <strong>Comportamentos:</strong>
   <% @student.behaviors.each do |sb|%>
   <%= sb.description %>

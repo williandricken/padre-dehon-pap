@@ -6,4 +6,6 @@ class Student < ActiveRecord::Base
 	has_many :responsibles, through: :student_responsibles
 
 	has_one :medic_info
+
+	accepts_nested_attributes_for :medic_info
 end
