@@ -32,10 +32,32 @@
     <%= f.text_field :start_date %>
   </div>
   <div class="field">
+    <%= f.label "Ficha médica:" %><br>
+    <% @student.medic_info = MedicInfo.new%>    
+    <%= f.fields_for :medic_info do |ff| %>
+      <div>
+        <% Disease.all.each do |d| %>
+          <%= ff.check_box :diseases, {multiple: true}, d, nil%>
+          <%= d.name%><br>
+        <% end %>     
+      </div>
+      <div>
+        <%= ff.label :surgery %>
+        <%= ff.text_field :surgery %> <br>
+        <%= ff.label :treatment %>
+        <%= ff.text_field :treatment %> <br>
+        <%= ff.label :allergic %>
+        <%= ff.text_field :allergic %> <br>
+        <%= ff.label :intolerant %>
+        <%= ff.text_field :intolerant %> <br>
+      </div>
+    <% end %>
+  </div>
+  <div class="field">
     <%= f.label "Comportamentos:" %><br>
     <% Behavior.all.each do |b| %>
       <%= f.check_box :behavior_ids, {multiple: true}, b.id, nil%>
-      <%= f.label b.description%>
+      <%= b.description%><br>
     <% end %>
   </div>
   <div class="field">
@@ -44,5 +66,5 @@
   </div>
   <div class="actions">
     <%= f.submit "Criar aluno"%>
-  </div>
+  </div>  
 <% end %>
