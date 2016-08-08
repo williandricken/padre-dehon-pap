@@ -8,4 +8,5 @@ class Student < ActiveRecord::Base
 	has_one :medic_info
 
 	accepts_nested_attributes_for :medic_info
+	validates_length_of :name, maximum: 2
 end

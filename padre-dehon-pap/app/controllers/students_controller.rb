@@ -15,6 +15,7 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
+    @student.medic_info = MedicInfo.new
   end
 
   # GET /students/1/edit
@@ -70,8 +71,8 @@ class StudentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
       params.require(:student).permit(:name, :birth_date, :place_of_birth, :school_year, 
-        :start_date, :another_behavior, behavior_ids: [], medic_info_attributes: [:diseases, :surgery, 
-        :treatment, :allergic, :intolerant])
+        :start_date, :another_behavior, behavior_ids: [], medic_info_attributes: [:surgery,
+        :treatment, :allergic, :intolerant, disease_ids: []])
     end
 end
 
