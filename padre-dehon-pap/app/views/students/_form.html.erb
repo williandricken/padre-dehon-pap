@@ -1,15 +1,22 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <%= simple_form_for(@student, html: { class: 'form-vertical' }) do |f| %>
-        <%= f.input :name %>
-        <%= f.input :place_of_birth %>
+        <%= f.input :school_year, label: "Ano letivo:", collection: (Time.now.year - 3)..(Time.now.year + 3), selected: Time.now.year %>
+        <%= f.input :start_date, label:"Ano letivo da primeira matricula:" %>
+        <%= f.input :name, label: "Nome:" %>
+        <%= f.input :birth_date, label: "Data de aniversário:" %>
+        <h3>"Estado"</h3>
+        <%= f.input :place_of_birth, label: "Cidade onde nasceu:"%>
         <%= f.simple_fields_for :medic_info do |fm| %>
-          <%= fm.association :diseases, collection: Disease.all %>
-          <%= fm.input :surgery %>
-          <%= fm.input :intolerant , placeholder: "Não" %>
+          <%= fm.association :diseases, label:"Assinale as doenças que a criança já teve:", collection: Disease.all, as: :check_boxes %>
+          <%= fm.input :surgery, label: "Submeteu-se a intervenções cirúrgicas?"  %>
+          <%= fm.input :treatment, label: "Faz tratamento de saúde? Qual?"  %>
+          <%= fm.input :allergic, label: "É alérgico há algum medicamento? Qual?"  %>
+          <%= fm.input :intolerant , label: "Tem restrição/intolerância alimentar? Qual?", placeholder: true %>
         <% end %>
-        <%= f.button :submit %>
+        <%= f.association :behaviors, label: "comportamentos", collection: Behavior.all, as: :check_boxes %>
+        <%= f.button :submit, class: "btn btn-success" %>
       <% end %>
     </div>
   </div>
