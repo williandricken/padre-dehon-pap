@@ -26,6 +26,11 @@
 </p>
 
 <p>
+  <strong>Estado:</strong>
+  <%= @student.state %>
+</p>
+
+<p>
   <strong>Ficha médica:</strong>
   <% @student.medic_info.diseases.each do |d|%>
   <%= d.name%>
