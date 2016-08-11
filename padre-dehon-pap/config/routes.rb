@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   resources :behaviors
   resources :students
 
-  
+  root 'email#index'
+  post 'email/subscribe' => 'email#subscribe'
 
-  root to: "pages#home"
+
+  #root to: 'pages#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
