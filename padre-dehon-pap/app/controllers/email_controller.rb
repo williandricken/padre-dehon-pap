@@ -6,16 +6,20 @@ class EmailController < ApplicationController
 
     list_id = "51c1564989"
 
+    res = Responsible.first
+
 
     Gibbon::Request.new.lists(list_id).members.create(body:
-                                                      {email_address: params[:email][:address], status: "subscribed",
-                                                       merge_fields: {FNAME: "First Name", LNAME: "Last Name"}})
+                                                      {email_address: res.user.email, status: "subscribed",
+                                                       merge_fields: {FNAME: res.name,
+                                                                      LNAME: res.cpf,
+                                                                      AGE: res.students.first.school_year}})
 
     render :index
   rescue Gibbon::MailChimpError => e
     if e.title == "Member Exists"
       flash[:info] = "Membro já cadastrado!!!"
-      render :index
     end
+    render :index
   end
 end

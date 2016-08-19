@@ -1,33 +1,24 @@
-<%= form_for(@responsible) do |f| %>
-  <% if @responsible.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@responsible.errors.count, "error") %> prohibited this responsible from being saved:</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <%= simple_form_for(@responsible, html: { class: 'form-vertical' }) do |f| %>
 
-      <ul>
-      <% @responsible.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <div>
+            <%= f.input :name, label: "Nome:" %>
+            <%= f.input :rg, label: "R.G:" %>
+            <%= f.input :cpf, label: "C.P.F:"%>
+            <%= f.input :schooling, label: "Escolaridade:" %>
+          </div>
+
+          <div>
+            <%= f.simple_fields_for :user do |fu| %>
+                <%= fu.input :email, label: "Email de login:"  %>
+                <%= fu.password_field :password, label: "Senha:" %>
+            <% end %>
+          </div>
+
+          <%= f.button :submit, "Cadastrar responsável",  class: "btn btn-success" %>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :rg %><br>
-    <%= f.text_field :rg %>
-  </div>
-  <div class="field">
-    <%= f.label :cpf %><br>
-    <%= f.text_field :cpf %>
-  </div>
-  <div class="field">
-    <%= f.label :schooling %><br>
-    <%= f.text_field :schooling %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

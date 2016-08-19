@@ -1,7 +1,10 @@
 <h1>Get My Awesome News Letter</h1>
 <p>Give me your email and keep up to date on my cat's thoughts.</p>
 <%= form_tag('/email/subscribe', method: "post", id: "subscribe", remote: "true") do -%>
-    <%= email_field(:email, :address, {id: "email", placeholder: "email address"}) %>
+    <!--<%= email_field(:email, :address, {id: "email", placeholder: "email address"}) %>-->
+    <!--<%= text_field(:email, :first_name, {id: "firstName", placeholder: "Primeiro nome:"}) %>-->
+    <!--<%= text_field(:email, :last_name, {id: "lastName", placeholder: "Ultimo nome:"}) %>-->
     <%= submit_tag("Sign me up!") %>
-    <>
 <% end %>
+
+<%= flash[:info]%>

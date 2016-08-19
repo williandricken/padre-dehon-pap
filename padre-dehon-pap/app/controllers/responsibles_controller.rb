@@ -10,11 +10,16 @@ class ResponsiblesController < ApplicationController
   # GET /responsibles/1
   # GET /responsibles/1.json
   def show
+    @student = Student.new
+    @student.responsibles << @responsible
+    @student.medic_info  = MedicInfo.new
   end
 
   # GET /responsibles/new
   def new
     @responsible = Responsible.new
+    @responsible.user = User.new
+    @responsible.students = Array.new
   end
 
   # GET /responsibles/1/edit
@@ -24,17 +29,20 @@ class ResponsiblesController < ApplicationController
   # POST /responsibles
   # POST /responsibles.json
   def create
-    @responsible = Responsible.new(responsible_params)
-
-    respond_to do |format|
-      if @responsible.save
-        format.html { redirect_to @responsible, notice: 'Responsible was successfully created.' }
-        format.json { render :show, status: :created, location: @responsible }
-      else
-        format.html { render :new }
-        format.json { render json: @responsible.errors, status: :unprocessable_entity }
-      end
-    end
+    @user = User.create(responsible_params[:user_attributes].merge(password: 131234))
+    render text: 'foi'
+    # @responsible = Responsible.new(responsible_params)
+    # @responsible.user = @user
+    #
+    # respond_to do |format|
+    #   if @responsible.save
+    #     format.html { redirect_to @responsible, notice: 'Responsible was successfully created.' }
+    #     format.json { render :show, status: :created, location: @responsible }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @responsible.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /responsibles/1
@@ -69,6 +77,6 @@ class ResponsiblesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def responsible_params
-      params.require(:responsible).permit(:name, :rg, :cpf, :schooling)
+      params.require(:responsible).permit(:name, :rg, :cpf, :schooling, user_attributes: [:email, :password])
     end
 end
