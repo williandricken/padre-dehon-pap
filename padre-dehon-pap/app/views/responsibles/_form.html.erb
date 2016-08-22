@@ -13,7 +13,7 @@
           <div>
             <%= f.simple_fields_for :user do |fu| %>
                 <%= fu.input :email, label: "Email de login:"  %>
-                <%= fu.password_field :password, label: "Senha:" %>
+                <%= fu.input :password, label: "Senha:" %>
             <% end %>
           </div>
 

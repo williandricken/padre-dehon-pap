@@ -29,20 +29,17 @@ class ResponsiblesController < ApplicationController
   # POST /responsibles
   # POST /responsibles.json
   def create
-    @user = User.create(responsible_params[:user_attributes].merge(password: 131234))
-    render text: 'foi'
-    # @responsible = Responsible.new(responsible_params)
-    # @responsible.user = @user
-    #
-    # respond_to do |format|
-    #   if @responsible.save
-    #     format.html { redirect_to @responsible, notice: 'Responsible was successfully created.' }
-    #     format.json { render :show, status: :created, location: @responsible }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @responsible.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    @responsible = Responsible.new(responsible_params)
+
+    respond_to do |format|
+      if @responsible.save
+        format.html { redirect_to @responsible, notice: 'Responsible was successfully created.' }
+        format.json { render :show, status: :created, location: @responsible }
+      else
+        format.html { render :new }
+        format.json { render json: @responsible.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /responsibles/1
