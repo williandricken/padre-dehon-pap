@@ -1,13 +1,16 @@
-class ResponsibleMailer < ActionMailer::Base
-  default from: "williandricken@gmail.com"
-
-  def responsible_created (responsible)
-    @responsible = responsible
-    template = render template: 'responsible_mailer/responsible_created', :responsible => @responsible
-    mail(
-        to: @responsible.user.email,
-        subject: "Seja Bem-Vindo"
-    )
+class ResponsibleMailer
+  class << self
+    include SendGridMailer
+    def responsible_created (responsible)
+      # template = render template: 'responsible_mailer/responsible_created', :responsible => @responsible
+      # content = get_content
+      email(
+          from: "itamar.jda@gmail.com",
+          subject: "Seja Bem-Vindo",
+          to: responsible.user.email,
+          content: get_content
+      )
+    end
   end
 end
 

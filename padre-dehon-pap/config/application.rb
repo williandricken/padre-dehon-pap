@@ -34,5 +34,8 @@ module PadreDehonPap
         :enable_starttls_auto => true
 
     }
+
+    config.autoload_paths += %W(
+    #{config.root}/app/mailers/concerns)
   end
 end
