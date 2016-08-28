@@ -5,7 +5,7 @@ class ResponsibleMailer
       # template = render template: 'responsible_mailer/responsible_created', :responsible => @responsible
       # content = get_content
       email(
-          from: "itamar.jda@gmail.com",
+          from: "williandricken@gmail.com",
           subject: "Seja Bem-Vindo",
           to: responsible.user.email,
           content: get_content
