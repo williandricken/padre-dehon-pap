@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :behaviors
   resources :students
 
+  get '/sms', to: 'sms#index'
+  #post 'sms/send' => 'sms#send'
+
   root 'email#index'
   post 'email/subscribe' => 'email#subscribe'
 
