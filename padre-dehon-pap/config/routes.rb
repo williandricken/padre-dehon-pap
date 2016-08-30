@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :behaviors
   resources :students
 
-  get '/sms', to: 'sms#index'
+  get '/templates/:id' , to: 'email#template', as: :template
+
+  #get '/sms', to: 'sms#index'
   #post 'sms/send' => 'sms#send'
 
   root 'email#index'

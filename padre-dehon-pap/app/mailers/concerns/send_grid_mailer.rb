@@ -6,9 +6,17 @@ module SendGridMailer
   # end
 
   def get_content
-    template_id = "41a43df9-1cc0-4f1a-8ee8-e0b146f22bfb"
+    Content.new(type: 'text/html', value: get_template)
+  end
+
+  def get_template
+    template_id = "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
     template = SendGridMailer.sg.client.templates._(template_id).get()
-    Content.new(type: 'text/html', value: JSON.parse(template.body)["versions"].last["html_content"])
+    JSON.parse(template.body)["versions"].last["html_content"]
+  end
+
+  def self.get_templates
+    JSON.parse(SendGridMailer.sg.client.templates.get().body)['templates']
   end
 
   def email (params = {})

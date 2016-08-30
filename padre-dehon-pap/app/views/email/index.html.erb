@@ -1,3 +1,14 @@
+<% @templates.each do |template| %>
+    <a href="<%= template['id'] %>" class="get-template" > <%= template['name'] %> </a>
+    <br>
+<% end %>
+
+<div class="email-template">
+
+
+</div>
+
+
 <h1>Get My Awesome News Letter</h1>
 <p>Give me your email and keep up to date on my cat's thoughts.</p>
 <%= form_tag('/email/subscribe', method: "post", id: "subscribe", remote: "true") do -%>
