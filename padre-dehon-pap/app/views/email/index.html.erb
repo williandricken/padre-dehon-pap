@@ -1,10 +1,31 @@
 <% @templates.each do |template| %>
-    <a href="<%= template['id'] %>" class="get-template" > <%= template['name'] %> </a>
+    <button data-temp-id="<%= template['id'] %>" class="get-template" > preview</button>
+    <%= template['name'] %>
     <br>
 <% end %>
 
 <div class="email-template">
 
+</div>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times</span>
+      <h2>Modal Header</h2>
+    </div>
+    <div class="modal-body email-template">
+    </div>
+    <div class="modal-footer">
+      <h3>Modal Footer</h3>
+    </div>
+  </div>
 
 </div>
 
