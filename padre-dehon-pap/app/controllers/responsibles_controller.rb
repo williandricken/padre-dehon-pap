@@ -34,7 +34,8 @@ class ResponsiblesController < ApplicationController
     respond_to do |format|
       if @responsible.save
         ResponsibleMailer.responsible_created(@responsible).deliver_now
-        SMS.new('+554187000202').send
+        ResponsibleMailer.
+        #SMS.new('+554187000202').send
         format.html { redirect_to @responsible, notice: 'Responsible was successfully created.' }
         format.json { render :show, status: :created, location: @responsible }
       else

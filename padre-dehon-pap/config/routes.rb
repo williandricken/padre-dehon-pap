@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   get '/templates/:id' , to: 'email#template', as: :template
 
+  # get '/students/:id' , to: 'students#quick_info', as: :quick_info
+  # get '/students/' , to: 'students#index', as: :students
+  # get '/students/:id' , to: 'students#edit', as: :edit_student
+
   #get '/sms', to: 'sms#index'
   #post 'sms/send' => 'sms#send'
 

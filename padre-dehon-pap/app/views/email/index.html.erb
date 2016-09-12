@@ -1,16 +1,11 @@
 <% @templates.each do |template| %>
-    <button data-temp-id="<%= template['id'] %>" class="get-template" > preview</button>
     <%= template['name'] %>
+    <%= template['versions'].first['subject'] %>
+    <button data-temp-id="<%= template['id'] %>" class="get-template" > preview</button>
     <br>
 <% end %>
 
-<div class="email-template">
-
 </div>
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
-
 <!-- The Modal -->
 <div id="myModal" class="modal">
 

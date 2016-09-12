@@ -9,8 +9,19 @@ module SendGridMailer
     Content.new(type: 'text/html', value: get_template)
   end
 
-  def get_template
-    template_id = "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
+  def get_all_templates
+    response = SendGridMailer.sg.client.templates.get()
+    puts response.status_code
+    templates = JSON.parse(response.body)["templates"] #.first["id"]
+    templates_array = Array.new
+    templates.each do |e|
+      templates_array << e["id"]
+    end
+    return templates_array
+  end
+
+  def get_template (template_id)
+    # template_id = "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
     template = SendGridMailer.sg.client.templates._(template_id).get()
     JSON.parse(template.body)["versions"].last["html_content"]
   end
@@ -22,8 +33,8 @@ module SendGridMailer
     puts response.body
   end
 
-  def add_contact
-    res = Responsible.last
+  def add_contact (responsible)
+    res = responsible
     # request = "[
     #   {
     #     'email': '#{res.user.email}',
@@ -88,7 +99,7 @@ module SendGridMailer
     puts response.body
   end
 
-  def self.get_templates
+  def get_all_templates
     JSON.parse(SendGridMailer.sg.client.templates.get().body)['templates']
   end
 

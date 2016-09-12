@@ -1,11 +1,11 @@
 class EmailController < ApplicationController
   include SendGridMailer
   def index
-      @templates = SendGridMailer.get_templates
+      @templates = get_all_templates
   end
 
   def template
-      render html: get_template.html_safe
+      render html: get_template(params[:id]).html_safe
   end
 
   def subscribe

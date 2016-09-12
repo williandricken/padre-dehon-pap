@@ -13,6 +13,10 @@ class StudentsController < ApplicationController
   def show
   end
 
+  def quick_info
+    "chegou na function" + params[:id]
+  end
+
   # GET /students/new
   def new
     @student = Student.new
