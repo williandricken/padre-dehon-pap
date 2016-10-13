@@ -4,26 +4,34 @@ module SendGridMailer
   
 
   list_id = 553385
+  sender = 61578
 
   def get_content
     Content.new(type: 'text/html', value: get_template)
   end
 
-  def get_all_templates
+  def get_all_templates_2
     response = SendGridMailer.sg.client.templates.get()
     puts response.status_code
     templates = JSON.parse(response.body)["templates"] #.first["id"]
-    templates_array = Array.new
-    templates.each do |e|
-      templates_array << e["id"]
-    end
-    return templates_array
+
+    # templates_array = Array.new
+    # templates.each do |e|
+    #   templates_array << e["id"]
+    # end
+    # return templates_array
   end
 
   def get_template (template_id)
     # template_id = "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
     template = SendGridMailer.sg.client.templates._(template_id).get()
     JSON.parse(template.body)["versions"].last["html_content"]
+  end
+
+  def get_senders
+    response = SendGridMailer.sg.client.senders.get()
+    puts response.status_code
+    puts response.body
   end
 
   def get_all_contacts

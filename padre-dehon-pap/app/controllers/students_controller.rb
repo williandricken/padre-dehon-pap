@@ -10,7 +10,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1
   # GET /students/1.json
-  def show
+  def show  
   end
 
   def quick_info
