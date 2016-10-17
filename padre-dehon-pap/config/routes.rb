@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   #post 'sms/send' => 'sms#send'
 
   root 'email#index'
-  post 'email/subscribe' => 'email#subscribe'
+  post 'email/create_campaign' => 'email#create_campaign'
 
 
   #root to: 'pages#home'

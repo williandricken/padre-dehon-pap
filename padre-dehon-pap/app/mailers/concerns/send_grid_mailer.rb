@@ -41,6 +41,12 @@ module SendGridMailer
     puts response.body
   end
 
+  def get_all_categories
+    response = SendGridMailer.sg.client.categories.get()
+    puts response.status_code
+    puts response.body
+  end
+
   def add_contact (responsible)
     res = responsible
     # request = "[
@@ -81,6 +87,33 @@ module SendGridMailer
     response = SendGridMailer.sg.client.campaigns.get() #(query_params: params)
     puts response.status_code
     puts response.body
+  end
+
+  def create_campaign
+    data = JSON.parse('{
+      "categories": [
+        "spring line"
+      ],
+      "custom_unsubscribe_url": "",
+      "html_content": "<html><head><title></title></head><body><p>Check out our spring line!</p></body></html>",
+      "ip_pool": "marketing",
+      "list_ids": [
+        110,
+        124
+      ],
+      "plain_content": "Check out our spring line!",
+      "segment_ids": [
+        110
+      ],
+      "sender_id": 124451,
+      "subject": "New Products for Spring!",
+      "suppression_group_id": 42,
+      "title": "March Newsletter"
+    }')
+    response = SendGridMailer.sg.client.campaigns.post(request_body: data)
+    puts response.status_code
+    puts response.body
+    puts response.headers
   end
 
   def send_campaign
