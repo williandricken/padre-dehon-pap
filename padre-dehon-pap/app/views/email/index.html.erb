@@ -21,7 +21,21 @@
 
 </div>
 
-<div><%= @campaign[:plain_email_text]%></div>
+<div><%= @campaign%></div>
+
+<%= simple_form_for(@campaign, html: { class: 'form-vertical' }) do |f| %>
+
+          <div>
+            <%= f.input :plain_email_content, label: "Nome:" %>
+            <%= f.input :plain_email_content, label:"Assinale as doenças que a criança já teve:", collection: @templates, as: :check_boxes %>
+            <%= f.input :email_content, label: "R.G:" %>
+            <%= f.input :html_content, label: "R.G:" %>
+            <%= f.input :subject, label: "R.G:" %>
+            <%= f.input :title, label: "R.G:" %>
+                     
+          </div>
+          <%= f.button :submit, "Cadastrar responsável",  class: "btn btn-success" %>
+      <% end %>
 
 <%= form_tag('/email/create_campaign', method: "post", id: "create_campaign", remote: "true") do %>
     <%= text_field_tag '@campaign[:plain_email_text]'%><br>

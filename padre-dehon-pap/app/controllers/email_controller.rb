@@ -5,17 +5,20 @@ class EmailController < ApplicationController
       # @campaign = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
       # title: "", segment_ids: [],   categories: ["tes","tsss"], lists: [553385]}
       @campaign = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
-      title: "", :categories "", list: 553385}
+      title: "", categories: "", list: 553385}
+
+      @campaign = Campaign.new
       return @templates, @campaign
   end
-
   
   def template
       render html: get_template(params[:id]).html_safe
   end
 
   def create_campaign
-    @campaign = campaign_params
+    @campaign = Campaign.new(campaign_params)
+
+    raise @campaign.to_json
 
     flash[@campaign]
 

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :responsibles
   resources :behaviors
   resources :students
+  resources :campaigns
 
   get '/templates/:id' , to: 'email#template', as: :template
 
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   #post 'sms/send' => 'sms#send'
 
   root 'email#index'
-  post 'email/create_campaign' => 'email#create_campaign'
+  #post 'email/create_campaign' => 'email#create_campaign'
 
 
   #root to: 'pages#home'
