@@ -7,7 +7,8 @@ module SendGridMailer
   sender = 61578
 
   def get_content
-    Content.new(type: 'text/html', value: get_template)
+    Content.new(type: 'text/html', value: get_template_ready)
+    # Content.new(type: 'text/plain', value: "testing my email man, just chill out")
   end
 
   def get_all_templates_2
@@ -24,6 +25,12 @@ module SendGridMailer
 
   def get_template (template_id)
     # template_id = "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
+    template = SendGridMailer.sg.client.templates._(template_id).get()
+    puts JSON.parse(template.body)["versions"].last["html_content"]
+  end
+
+  def get_template_ready
+    template_id = "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
     template = SendGridMailer.sg.client.templates._(template_id).get()
     JSON.parse(template.body)["versions"].last["html_content"]
   end
@@ -123,6 +130,82 @@ module SendGridMailer
     puts response.body
   end
 
+  def send_test_email
+
+    data = JSON.parse('{
+      "personalizations": [
+        {
+          "to": [
+            {
+              "email": "willian@ebanx.com"
+            }
+          ],
+          "subject": "test12",
+
+          "sub": {
+        ":name": "Alice" 
+      }
+
+        }
+      ],
+
+      
+
+      "from": {
+        "email": "williandricken@gmail.com"
+      },
+
+      "filters": {
+        "templates": {
+          "settings": {
+            "enable": 1,
+            "template_id": "41a43df9-1cc0-4f1a-8ee8-e0b146f22bfb"
+          }
+        }
+      },
+
+      "content": [
+        {
+          "type": "text/html",
+          "value": "teste123"
+        }
+      ]
+    }')
+
+      # "template_id": "41a43df9-1cc0-4f1a-8ee8-e0b146f22bfb",
+      # "template_id": "9b8ee263-1120-44b6-a287-a01f0dd4ec36",
+response = SendGridMailer.sg.client.mail._("send").post(request_body: data)
+puts response.status_code
+puts response.body
+  end
+
+def hello_world
+  mail = Mail.new
+  mail.from = Email.new(email: 'williandricken@gmail.com')
+  mail.subject = 'Hello World from the SendGrid4'
+  p = Personalization.new
+  p.to = Email.new(email: 'willian@ebanx.com')
+  p.substitutions = Substitution.new(key: '%name%', value: 'Elmer Thomas')
+  p.substitutions = Substitution.new(key: '%city%', value: 'Denver')
+  p.substitutions = Substitution.new(key: '%var%', value: 'http://www.sendgrid.com')
+  p.substitutions = Substitution.new(key: '%value%', value: 'SendGrid.com')
+  p.substitutions = Substitution.new(key: '%content%', value: '
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed sem a nisi vestibulum gravida. Ut pulvinar nisl vitae neque commodo luctus. Nulla ac euismod nulla. Nam ornare ultricies sapien eu efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur id nunc sed lectus laoreet eleifend ut lobortis lacus. Quisque consequat lorem et maximus rhoncus. Morbi libero mauris, consectetur id convallis sit amet, ullamcorper nec enim. Morbi egestas est eu sapien condimentum, quis tincidunt tortor semper. Ut porta molestie erat id convallis. Donec id leo nibh. Cras vel efficitur leo. Cras porta massa non efficitur lobortis. Mauris nec finibus enim.
+
+Nullam eu finibus lorem, eu maximus enim. Duis in scelerisque arcu, a interdum diam. Cras eget eleifend augue. Etiam varius venenatis interdum. Suspendisse sem tortor, condimentum vitae urna et, ornare vulputate augue. Morbi bibendum arcu sed massa finibus hendrerit ut pharetra lectus. Etiam id. ')
+  mail.personalizations = p
+  # This will no longer be a requirement soon
+  mail.contents = Content.new(type: 'text/html', value: 'test')
+  mail.template_id = 'e4aa6e75-aaa1-4399-baf0-bc17a7d242d7'
+
+  # sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'], host: 'https://api.sendgrid.com')
+  response = SendGridMailer.sg.client.mail._('send').post(request_body: mail.to_json)
+  puts response.status_code
+  puts response.body
+  puts response.headers
+end
+
   def test_campaign
     data = JSON.parse('{
       "to": "willian@ebanx.com"
@@ -131,7 +214,6 @@ module SendGridMailer
     response = SendGridMailer.sg.client.campaigns._(campaign_id).schedules.test.post(request_body: data)
     puts response.status_code
     puts response.body
-    puts response.headers
   end
 
   def get_all_lists
@@ -147,6 +229,11 @@ module SendGridMailer
   def email (params = {})
     params[:from] = Email.new(email: params[:from])
     params[:to] = Email.new(email: params[:to])
+    # "mail_settings": {
+    #   "sandbox_mode": {
+    #       "enable": true
+    #   }
+    # }
     SendGridMailer::MessageDeliver.new(Mail.new(*params.values))
   end
 

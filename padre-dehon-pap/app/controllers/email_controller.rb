@@ -12,7 +12,7 @@ class EmailController < ApplicationController
   end
   
   def template
-      render html: get_template(params[:id]).html_safe
+      render html: get_template(params[:id]).to_s.html_safe
   end
 
   def create_campaign

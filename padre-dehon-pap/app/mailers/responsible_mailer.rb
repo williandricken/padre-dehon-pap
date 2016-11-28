@@ -6,9 +6,9 @@ class ResponsibleMailer
       # content = get_content
       email(
           from: "williandricken@gmail.com",
-          subject: "Seja Bem-Vindo",
           to: responsible.user.email,
-          content: get_content
+          content: get_content,
+          template_id: "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
       )
     end
   end

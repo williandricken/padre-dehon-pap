@@ -12,7 +12,7 @@ class SMS
 		client.account.messages.create(
 			messaging_service_sid: Rails.application.secrets.twilio_messaging_service_sid,
 			to: @to,
-			body: "Hello guys!!!"
+			body: "Testando a mensagem!!!"
 		)		
 	end
 end

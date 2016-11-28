@@ -1,11 +1,22 @@
-<% @templates.each do |template| %>
-    <%= template['name'] %>
-    <%= template['versions'].first['subject'] %>
-    <button data-temp-id="<%= template['id'] %>" class="get-template" > preview</button>
-    <br>
-<% end %>
 
-</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th colspan="4" style="text-align:center">Lista de Templates</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @templates.each do |template| %>
+    <tr>
+      <td><%= template['name'] %></td>
+      <td><%= template['versions'].first['subject'] %></td>
+      <td><button data-temp-id="<%= template['id'] %>" class="get-template" > Preview</button></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
@@ -14,20 +25,15 @@
       <span class="close">&times</span>
       <h2>Preview do Email</h2>
     </div>
-    <div class="modal-body email-template">
-    </div>
+    <div class="modal-body email-template"></div>
     <div class="modal-footer"></div>
   </div>
-
 </div>
-
-<div><%= @campaign%></div>
 
 <%= simple_form_for(@campaign, html: { class: 'form-vertical' }) do |f| %>
 
           <div>
             <%= f.input :plain_email_content, label: "Nome:" %>
-            <%= f.input :plain_email_content, label:"Assinale as doenças que a criança já teve:", collection: @templates, as: :check_boxes %>
             <%= f.input :email_content, label: "R.G:" %>
             <%= f.input :html_content, label: "R.G:" %>
             <%= f.input :subject, label: "R.G:" %>
