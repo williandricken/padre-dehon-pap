@@ -4,23 +4,26 @@ class EmailController < ApplicationController
       @templates = get_all_templates
       # @campaign = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
       # title: "", segment_ids: [],   categories: ["tes","tsss"], lists: [553385]}
-      @campaign = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
+      @email = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
       title: "", categories: "", list: 553385}
 
-      @campaign = Campaign.new
-      return @templates, @campaign
+      attr_accessor :to, :from, :content, :template_id, :subject,
+      :title, substitutions: []
+
+      @email = Email.new
+      return @templates, @email
   end
   
   def template
-      render html: get_template(params[:id]).to_s.html_safe
+      render html: get_template(params[:id]).html_safe
   end
 
-  def create_campaign
-    @campaign = Campaign.new(campaign_params)
+  def create_email
+    @email = Email.new(email_params)
 
-    raise @campaign.to_json
+    raise @email.to_json
 
-    flash[@campaign]
+    flash[@email]
 
     render :index
 
@@ -49,8 +52,8 @@ class EmailController < ApplicationController
   private   
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def campaign_params
-      params.require(:campaign).permit(:plain_email_content, :email_content, :sender_id, :subject,
+    def email_params
+      params.require(:email).permit(:plain_email_content, :email_content, :sender_id, :subject,
       :title, segment_ids: [], categories: [], lists: [])
     end
 

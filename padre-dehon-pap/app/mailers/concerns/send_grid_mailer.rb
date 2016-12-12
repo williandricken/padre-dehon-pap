@@ -26,7 +26,7 @@ module SendGridMailer
   def get_template (template_id)
     # template_id = "9b8ee263-1120-44b6-a287-a01f0dd4ec36"
     template = SendGridMailer.sg.client.templates._(template_id).get()
-    puts JSON.parse(template.body)["versions"].last["html_content"]
+    JSON.parse(template.body)["versions"].last["html_content"]
   end
 
   def get_template_ready

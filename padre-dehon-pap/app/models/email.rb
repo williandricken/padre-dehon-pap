@@ -1,4 +1,4 @@
-class Campaign
+class Email
   
   include ActiveModel::Validations
   include ActiveModel::Conversion
