@@ -1,31 +1,43 @@
-class EmailController < ApplicationController
+class EmailsController < ApplicationController
   include SendGridMailer
   def index
       @templates = get_all_templates
+
       # @campaign = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
       # title: "", segment_ids: [],   categories: ["tes","tsss"], lists: [553385]}
-      @email = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
-      title: "", categories: "", list: 553385}
+      # @email = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
+      # title: "", categories: "", list: 553385}
 
-      attr_accessor :to, :from, :content, :template_id, :subject,
-      :title, substitutions: []
+      # attr_accessor :to, :from, :content, :template_id, :subject,
+      # :title, substitutions: []
 
-      @email = Email.new
-      return @templates, @email
+      @email = TransactionalEmail.new
   end
   
   def template
       render html: get_template(params[:id]).html_safe
   end
 
-  def create_email
-    @email = Email.new(email_params)
+  def create
+    @email = TransactionalEmail.new(transactional_email_params)
 
-    raise @email.to_json
+    # send_email_form(@email)
 
-    flash[@email]
+    respond_to do |format|
+      if send_email_form(@email)
+        format.html { redirect_to :root, notice: 'foi carai' }
+        #format.json { render :index, status: :created, location: @student }
+      else
+        format.html { render :root, notice: 'deu merda' }
+        #format.json { render json: @student.errors, status: :unprocessable_entity }
+      end
+    end
 
-    render :index
+    #raise @email.to_json
+
+    #flash[@email]
+
+    #render :index
 
     # data = JSON.parse('{
     #   "categories": [
@@ -52,9 +64,8 @@ class EmailController < ApplicationController
   private   
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def email_params
-      params.require(:email).permit(:plain_email_content, :email_content, :sender_id, :subject,
-      :title, segment_ids: [], categories: [], lists: [])
+    def transactional_email_params
+      params.require(:transactional_email).permit(:to, :from, :subject, :content, :template_id)
     end
 
   # def subscribe

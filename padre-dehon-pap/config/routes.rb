@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   resources :behaviors
   resources :students
   resources :campaigns
+  resources :emails
 
-  get '/templates/:id' , to: 'email#template', as: :template
+  get '/templates/:id' , to: 'emails#template', as: :template
 
   # get '/students/:id' , to: 'students#quick_info', as: :quick_info
   # get '/students/' , to: 'students#index', as: :students
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   #get '/sms', to: 'sms#index'
   #post 'sms/send' => 'sms#send'
 
-  root 'email#index'
+  root 'emails#index'
   #post 'email/create_campaign' => 'email#create_campaign'
 
 

@@ -179,6 +179,23 @@ puts response.status_code
 puts response.body
   end
 
+def send_email_form (transactional_email)
+  mail = Mail.new
+  mail.from = Email.new(email: transactional_email.from)
+  mail.subject = transactional_email.subject
+  personalizations = Personalization.new
+  personalizations.to = Email.new(email: transactional_email.to)
+  personalizations.substitutions = Substitution.new(key: '%content%', value: transactional_email.content)
+
+  mail.personalizations = personalizations
+  mail.contents = Content.new(type: 'text/html', value: 'test')
+  mail.template_id = transactional_email.template_id
+  response = SendGridMailer.sg.client.mail._('send').post(request_body: mail.to_json)
+  # puts response.status_code
+  # puts response.body
+  # puts response.headers
+end
+
 def hello_world
   mail = Mail.new
   mail.from = Email.new(email: 'williandricken@gmail.com')

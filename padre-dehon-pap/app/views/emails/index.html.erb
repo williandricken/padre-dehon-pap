@@ -1,0 +1,42 @@
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th colspan="4" style="text-align:center">Lista de Templates</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @templates.each do |template| %>
+    <tr>
+      <td><%= template['name'] %></td>
+      <td><%= template['versions'].last['subject'] %></td>
+      <td><button data-temp-id="<%= template['id'] %>" class="get-template" > Preview</button></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times</span>
+      <h2>Preview do Email</h2>
+    </div>
+    <div class="modal-body email-template"></div>
+    <div class="modal-footer"></div>
+  </div>
+</div>
+
+<%= simple_form_for(@email, url: emails_path, method: :post, html: { class: 'form-vertical' }) do |f| %>
+    <div>
+      <%= f.input :to, label: "Para:" %>
+      <%= f.input :from, label: "De:" %>
+      <%= f.input :subject, label: "Assunto:" %>
+      <%= f.input :content, label: "Mensagem:", as: :text %>
+      <%= f.input :template_id, label: "Template:", collection: @templates.map {|template| [template['name'], template['id']]}, as: :radio_buttons %>               
+    </div>
+    <%= f.button :submit, "Cadastrar responsável",  class: "btn btn-success" %>
+<% end %>
