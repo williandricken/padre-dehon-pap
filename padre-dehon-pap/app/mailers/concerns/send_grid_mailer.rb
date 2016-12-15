@@ -196,6 +196,14 @@ def send_email_form (transactional_email)
   # puts response.headers
 end
 
+def set_email (transactional_email)
+  mail = Mail.new
+  mail.from = Email.new(email: transactional_email.from)
+  mail.subject = transactional_email.subject
+  p.to = Email.new(email: transactional_email.to)
+  return mail
+end
+
 def hello_world
   mail = Mail.new
   mail.from = Email.new(email: 'williandricken@gmail.com')

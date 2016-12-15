@@ -1,5 +1,5 @@
 class EmailsController < ApplicationController
-  include SendGridMailer
+  # include SendGridMailer
   def index
       @templates = get_all_templates
 
@@ -19,7 +19,10 @@ class EmailsController < ApplicationController
   end
 
   def create
+    #mandar pro responsible email deliver
     @email = TransactionalEmail.new(transactional_email_params)
+
+    ResponsibleMailer.send_email(@email)
 
     # send_email_form(@email)
 
