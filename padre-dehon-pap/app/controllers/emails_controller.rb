@@ -1,5 +1,5 @@
 class EmailsController < ApplicationController
-  # include SendGridMailer
+  include SendGridMailer
   def index
       @templates = get_all_templates
 
@@ -21,8 +21,10 @@ class EmailsController < ApplicationController
   def create
     #mandar pro responsible email deliver
     @email = TransactionalEmail.new(transactional_email_params)
+    @respon = Responsible.last
 
-    ResponsibleMailer.send_email(@email)
+    #para cada item na lista de email, chamar esse metodo? quem deveria controlar isso?
+    ResponsibleMailer.send_email(@email, @respon)
 
     # send_email_form(@email)
 

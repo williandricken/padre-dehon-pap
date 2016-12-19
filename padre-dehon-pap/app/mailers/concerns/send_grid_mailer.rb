@@ -186,7 +186,6 @@ def send_email_form (transactional_email)
   personalizations = Personalization.new
   personalizations.to = Email.new(email: transactional_email.to)
   personalizations.substitutions = Substitution.new(key: '%content%', value: transactional_email.content)
-
   mail.personalizations = personalizations
   mail.contents = Content.new(type: 'text/html', value: 'test')
   mail.template_id = transactional_email.template_id
