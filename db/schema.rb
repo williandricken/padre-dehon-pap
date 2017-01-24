@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811195639) do
+ActiveRecord::Schema.define(version: 20170124180104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "street"
+    t.string   "complement"
+    t.integer  "street_number"
+    t.string   "neighborhood"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "zipcode"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
 
   create_table "behaviors", force: :cascade do |t|
     t.string   "description"
@@ -23,16 +39,44 @@ ActiveRecord::Schema.define(version: 20160811195639) do
   end
 
   create_table "disease_medic_infos", force: :cascade do |t|
-    t.integer  "disease_id"
-    t.integer  "medic_info_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "disease_id"
+    t.integer  "medic_info_id"
   end
 
   add_index "disease_medic_infos", ["disease_id"], name: "index_disease_medic_infos_on_disease_id", using: :btree
   add_index "disease_medic_infos", ["medic_info_id"], name: "index_disease_medic_infos_on_medic_info_id", using: :btree
 
   create_table "diseases", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employee_grades", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.integer  "grade_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "employee_grades", ["employee_id"], name: "index_employee_grades_on_employee_id", using: :btree
+  add_index "employee_grades", ["grade_id"], name: "index_employee_grades_on_grade_id", using: :btree
+
+  create_table "employees", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.string   "schooling"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "employees", ["user_id"], name: "index_employees_on_user_id", using: :btree
+
+  create_table "grades", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,20 +107,30 @@ ActiveRecord::Schema.define(version: 20160811195639) do
   add_index "responsibles", ["user_id"], name: "index_responsibles_on_user_id", using: :btree
 
   create_table "student_behaviors", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "behavior_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "student_id"
+    t.integer  "behavior_id"
   end
 
   add_index "student_behaviors", ["behavior_id"], name: "index_student_behaviors_on_behavior_id", using: :btree
   add_index "student_behaviors", ["student_id"], name: "index_student_behaviors_on_student_id", using: :btree
 
-  create_table "student_responsibles", force: :cascade do |t|
+  create_table "student_grades", force: :cascade do |t|
     t.integer  "student_id"
-    t.integer  "responsible_id"
+    t.integer  "grade_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "student_grades", ["grade_id"], name: "index_student_grades_on_grade_id", using: :btree
+  add_index "student_grades", ["student_id"], name: "index_student_grades_on_student_id", using: :btree
+
+  create_table "student_responsibles", force: :cascade do |t|
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "student_id"
+    t.integer  "responsible_id"
   end
 
   add_index "student_responsibles", ["responsible_id"], name: "index_student_responsibles_on_responsible_id", using: :btree
@@ -117,6 +171,18 @@ ActiveRecord::Schema.define(version: 20160811195639) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "addresses", "users"
+  add_foreign_key "disease_medic_infos", "diseases"
+  add_foreign_key "disease_medic_infos", "medic_infos"
+  add_foreign_key "employee_grades", "employees"
+  add_foreign_key "employee_grades", "grades"
+  add_foreign_key "employees", "users"
   add_foreign_key "medic_infos", "students"
   add_foreign_key "responsibles", "users"
+  add_foreign_key "student_behaviors", "behaviors"
+  add_foreign_key "student_behaviors", "students"
+  add_foreign_key "student_grades", "grades"
+  add_foreign_key "student_grades", "students"
+  add_foreign_key "student_responsibles", "responsibles"
+  add_foreign_key "student_responsibles", "students"
 end
