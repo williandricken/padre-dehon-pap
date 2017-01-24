@@ -32,13 +32,23 @@
 
 <p>
   <strong>Ficha médica:</strong>
+  <% if @student.medic_info.diseases.any?%>
+  <strong><p>Doenças:</p></strong>
   <% @student.medic_info.diseases.each do |d|%>
   <%= d.name%>
-  <%end%>
-  <%= @student.medic_info.surgery%>
-  <%= @student.medic_info.treatment%>
-  <%= @student.medic_info.allergic%>
-  <%= @student.medic_info.intolerant%>
+  <br>
+  <% end %>
+  <% end %>
+
+  <br>
+  <strong><p>Cirurgia?</strong><br>
+  <%= @student.medic_info.surgery%> </p>
+  <strong><p>Tratamento?</strong><br>
+  <%= @student.medic_info.treatment%> </p>
+  <strong><p>Alérgico?</strong><br>
+  <%= @student.medic_info.allergic%> </p>
+  <strong><p>Intolerante?</strong><br>
+  <%= @student.medic_info.intolerant%> </p>
 </p>
 
 <p>
@@ -66,5 +76,5 @@
   <% end %>
 </p>
 
-<%= link_to 'Editar', edit_student_path(@student) %> |
-<%= link_to 'Voltar', students_path %>
+<%= link_to 'Editar', edit_student_path(@student), class: "btn btn-primary btn-sm" %>
+<%= link_to 'Voltar', students_path, class: "btn btn-primary btn-sm" %>

@@ -15,6 +15,25 @@
     </tr>
   </thead>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <tbody>
     <% @students.each do |student| %>
       <tr>
@@ -24,6 +43,11 @@
         <td><%= student.school_year %></td>
         <td><%= student.start_date %></td>
         <td><%= student.another_behavior %></td>
+        <td>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" data-student-id="<%= student.id %>">
+          Ficha Rápida
+        </button>
+        </td>
         <td><%= link_to 'Exibir', student %></td>
         <td><%= link_to 'Editar', edit_student_path(student) %></td>
         <td><%= link_to 'Desativar', student, method: :delete, data: { confirm: 'Deseja desativar este aluno?' } %></td>
@@ -34,4 +58,4 @@
 
 <br>
 
-<%= link_to 'Novo aluno', new_student_path %>
+<%= link_to 'Novo aluno', new_student_path, class: "btn btn-primary btn-sm" %>

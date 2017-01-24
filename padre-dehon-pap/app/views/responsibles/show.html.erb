@@ -31,6 +31,8 @@
 
 <%= @responsible.user.try(:email) %>
 
+<%= render 'students/form', :student => @student, responsible: @responsible %>
+
 
 <%= link_to 'Edit', edit_responsible_path(@responsible) %> |
 <%= link_to 'Back', responsibles_path %>

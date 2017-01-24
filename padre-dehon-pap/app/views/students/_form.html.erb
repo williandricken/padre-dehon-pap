@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-6">
       <%= simple_form_for(@student, html: { class: 'form-vertical' }) do |f| %>
+          <%= f.hidden_field :responsible, value: @responsible.id %>
 
         <div>
           <%= f.input :school_year, label: "Ano letivo:", collection: (Time.now.year - 3)..(Time.now.year + 3), selected: Time.now.year %>
@@ -26,17 +27,6 @@
           <%= f.association :behaviors, label: "Defina a criança quanto a seu temperamento:", collection: Behavior.all, as: :check_boxes, label_method: :description %>
           <%= f.input :another_behavior, label: "Outros:" %>
         </div>
-
-        <!--<h1>Ficha do Responsável</h1>-->
-
-          <!--<div>-->
-            <!--<%= @student.responsibles.each do |fr| %>-->
-                <!--<%= fr.input :name, label: "Nome do responsável:"  %>-->
-                <!--<%= fr.input :rg, label: "R.G:"  %>-->
-                <!--<%= fr.input :cpf, label: "C.P.F:"  %>-->
-                <!--<%= fr.input :schooling , label: "Escolaridade:" %>-->
-            <!--<% end %>-->
-          <!--</div>-->
 
         <%= f.button :submit, "Matricular aluno",  class: "btn btn-success" %>
       <% end %>

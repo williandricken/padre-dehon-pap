@@ -4,9 +4,20 @@ Rails.application.routes.draw do
   resources :responsibles
   resources :behaviors
   resources :students
+  resources :campaigns
+  resources :emails
 
-  root 'email#index'
-  post 'email/subscribe' => 'email#subscribe'
+  get '/templates/:id' , to: 'emails#template', as: :template
+
+  # get '/students/:id' , to: 'students#quick_info', as: :quick_info
+  # get '/students/' , to: 'students#index', as: :students
+  # get '/students/:id' , to: 'students#edit', as: :edit_student
+
+  #get '/sms', to: 'sms#index'
+  #post 'sms/send' => 'sms#send'
+
+  root 'emails#index'
+  #post 'email/create_campaign' => 'email#create_campaign'
 
 
   #root to: 'pages#home'

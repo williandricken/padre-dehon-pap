@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_responsible, only: :create
 
   # GET /students
   # GET /students.json
@@ -9,14 +10,17 @@ class StudentsController < ApplicationController
 
   # GET /students/1
   # GET /students/1.json
-  def show
+  def show  
+  end
+
+  def quick_info
+    "chegou na function" + params[:id]
   end
 
   # GET /students/new
   def new
     @student = Student.new
     @student.medic_info = MedicInfo.new
-    @student.responsibles = Array.new
   end
 
   # GET /students/1/edit
@@ -27,6 +31,7 @@ class StudentsController < ApplicationController
   # POST /students.json
   def create
     @student = Student.new(student_params)
+    @student.responsibles << @responsible
 
     respond_to do |format|
       if @student.save
@@ -75,6 +80,8 @@ class StudentsController < ApplicationController
         :start_date, :state, :another_behavior, behavior_ids: [], medic_info_attributes: [:surgery,
         :treatment, :allergic, :intolerant, disease_ids: []])
     end
-end
 
-# params.permit(person: [ :name, { pets: :name } ])
+    def set_responsible
+      @responsible = Responsible.find(params[:student][:responsible])
+    end
+end
