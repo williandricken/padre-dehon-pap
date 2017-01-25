@@ -52,3 +52,5 @@ mdi1.diseases<<Disease.find(5)
 mdi2.diseases<<Disease.find(3)
 mdi3.diseases<<Disease.find(1)
 mdi3.diseases<<Disease.find(6)
+
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

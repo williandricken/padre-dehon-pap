@@ -10,4 +10,6 @@ class Student < ActiveRecord::Base
 	has_one :medic_info, :dependent => :destroy
 
 	accepts_nested_attributes_for :medic_info
+
+	# accepts_nested_attributes_for :responsibles
 end
