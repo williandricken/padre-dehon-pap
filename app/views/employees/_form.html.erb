@@ -1,14 +1,23 @@
-<%= simple_form_for(@employee) do |f| %>
-  <%= f.error_notification %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <%= simple_form_for(@employee, html: { class: 'form-vertical' }) do |f| %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :age %>
-    <%= f.input :schooling %>
-    <%= f.input :type %>
-  </div>
+          <div>
+            <%= f.input :name, label: "Nome:" %>
+            <%= f.input :age, label: "R.G:" %>
+            <%= f.input :schooling, label: "Escolaridade:" %>
+          </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+          <div>
+            <%= f.simple_fields_for :user do |fu| %>
+                <%= fu.input :email, label: "Email de login:"  %>
+                <%= fu.input :password, label: "Senha:" %>
+            <% end %>
+          </div>
+
+          <%= f.button :submit, "Cadastrar funcionário",  class: "btn btn-success" %>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>

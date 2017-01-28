@@ -11,5 +11,7 @@ class Student < ActiveRecord::Base
 
 	accepts_nested_attributes_for :medic_info
 
+	accepts_nested_attributes_for :behaviors
+
 	# accepts_nested_attributes_for :responsibles
 end

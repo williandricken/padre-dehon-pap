@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_one :responsible
 
+  has_one :employee
+
   has_many :addresses
 
   def teacher
