@@ -6,7 +6,11 @@ class User < ActiveRecord::Base
 
   has_one :responsible
 
+  has_one :employee
+
   has_many :addresses
+
+  accepts_nested_attributes_for :addresses
 
   def teacher
   	nil

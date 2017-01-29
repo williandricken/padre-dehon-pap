@@ -2,6 +2,7 @@ class Student < ActiveRecord::Base
 	has_many :student_behaviors
 	has_many :behaviors, through: :student_behaviors
 
+	has_many :student_grades
 	has_many :grades, through: :student_grades
 
 	has_many :student_responsibles

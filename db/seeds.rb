@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 Behavior.create(description: "Fácil (alegre, tranquila, comunicativa...)")
 Behavior.create(description: "Razoável (alegre, expressiva, pouco reservada)")
 Behavior.create(description: "Difícil (morde, bate, grita, joga-se no chão)")
@@ -52,3 +45,42 @@ mdi1.diseases<<Disease.find(5)
 mdi2.diseases<<Disease.find(3)
 mdi3.diseases<<Disease.find(1)
 mdi3.diseases<<Disease.find(6)
+
+emp1 = Employee.new(name: "Mariano", age: 21, schooling: "Ensino superior", job: "Monitor(a)")
+emp2 = Employee.new(name: "Luana", age: 23, schooling: "Ensino superior", job: "Professor(a)")
+emp3 = Employee.new(name: "Marlene", age: 25, schooling: "Ensino superior", job: "Professor(a)")
+emp4 = Employee.new(name: "Margarida", age: 30, schooling: "Ensino superior", job: "Coordenador(a)")
+emp5 = Employee.new(name: "Juliana", age: 26, schooling: "Ensino superior", job: "Nutricionista")
+
+emp1.user = User.new(email: "#{emp1.name}@gmail.com", password: "#{emp1.name}")
+emp2.user = User.new(email: "#{emp2.name}@gmail.com", password: "#{emp2.name}")
+emp3.user = User.new(email: "#{emp3.name}@gmail.com", password: "#{emp3.name}")
+emp4.user = User.new(email: "#{emp4.name}@gmail.com", password: "#{emp4.name}")
+emp5.user = User.new(email: "#{emp5.name}@gmail.com", password: "#{emp5.name}")
+
+ # = usr1 
+emp1.save!
+
+ # = usr2 
+emp2.save!
+
+ # = usr3 
+emp3.save!
+
+ # = usr4 
+emp4.save!
+
+ # = usr5 
+emp5.save!
+
+gr1 = Grade.create(name: "Pré 1")
+gr2 = Grade.create(name: "Pré 2")
+
+gr1.employees<<emp1
+gr1.employees<<emp2
+gr1.employees<<emp5
+gr2.employees<<emp3
+
+gr1.students<<s1
+gr1.students<<s2
+gr2.students<<s3
