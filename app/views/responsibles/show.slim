@@ -1,0 +1,38 @@
+p#notice = notice
+
+p
+  strong  Usuário do Responsável
+  = @responsible.user.email
+
+p
+  strong Nome do Responsável: 
+  = @responsible.name 
+
+p
+  strong RG: 
+  = @responsible.rg 
+
+p
+  strong CPF: 
+  = @responsible.cpf 
+
+p
+  strong Escolaridade: 
+  = @responsible.schooling 
+
+- if @responsible.students.present? 
+	p 
+    strong Alunos relacionados: 
+  	 - @responsible.students.each do |s|
+    		p Nome do aluno: = s.name 
+    		p Cidade do aluno: = s.place_of_birth 
+    		p Ano letivo do aluno: = s.school_year
+
+button#register.pointer.btn.btn-round.btn-primary href="#" type="button" Matricular novo aluno	
+
+div#form style="display:none"
+  = render 'students/form', student: @student, responsible: @responsible
+
+
+= link_to 'Editar', edit_responsible_path(@responsible), class: "btn btn-round btn-warning"
+= link_to 'Voltar', responsibles_path, class: "btn btn-round btn-default"

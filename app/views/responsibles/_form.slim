@@ -1,0 +1,11 @@
+= simple_form_for(@responsible, html: { class: 'form-vertical' }) do |f| 
+  = f.input :name, label: "Nome:" 
+  = f.input :rg, label: "R.G:" 
+  = f.input :cpf, label: "C.P.F:"
+  = f.input :schooling, label: "Escolaridade:" 
+
+  - f.simple_fields_for :user do |fu| 
+      = fu.input :email, as: :email, label: "Email de login:"  
+      = fu.input :password, as: :password, label: "Senha:" 
+ 
+  = f.button :submit, "Cadastrar responsável",  class: "btn btn-round btn-success"  

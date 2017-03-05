@@ -1,0 +1,28 @@
+.row
+  .col-sm-12
+    section.panel
+      header.panel-heading
+        | Lista de funcionários
+      .panel-body
+        table.table.table-hover
+          thead
+            tr
+              th Nome
+              th Idade
+              th Escolaridade
+              th Função
+              th colspan="3"
+
+          tbody
+            - @employees.each do |employee|
+              tr
+                td = employee.name
+                td = employee.age
+                td = employee.schooling
+                td = employee.job
+
+                td = link_to 'Exibir', employee, class: "btn btn-round btn-primary"
+                td = link_to 'Editar', edit_employee_path(employee), class: "btn btn-round btn-warning"
+                td = link_to 'Desativar', employee, class: "btn btn-round btn-danger", method: :delete, data: { confirm: 'Deseja desativar este funcionário?' }
+
+= link_to 'Novo funcionário', new_employee_path, class: "btn btn-round btn-success btn-lg"

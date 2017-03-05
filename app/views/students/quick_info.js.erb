@@ -1,0 +1,19 @@
+$('.info-student').html("<%= escape_javascript(render :partial => 'quick_info') %>");
+
+var $modal = $('#myModal')
+  , $modalMask = $('.modal-backdrop');
+
+$modal.addClass('in').show();
+$modalMask.addClass('in').show();
+
+$('.close-modal').on('click', function() {
+    $modal.hide();
+    $modalMask.hide();
+});
+
+window.onclick = function(event) {
+  if ($(event.target).attr('id') == $modal.attr('id')) {
+      $modal.hide();
+      $modalMask.hide();
+  }
+}

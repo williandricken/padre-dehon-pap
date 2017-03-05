@@ -18,14 +18,15 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <%= simple_form_for(:address, html: { class: 'form-vertical' }) do |a| %>
-        <%= a.input :zipcode, label: "CEP:", wrapper_html: { id: 'cep' } %>
-        <%= a.input :street, label: "Rua:", wrapper_html: { id: 'rua' } %>
+      <%= fu.simple_fields_for(:address, html: { class: 'form-vertical' }) do |a| %>
+        <%= a.input :zipcode, label: "CEP:", input_html: { id: 'zipcode' } %>
+        <%= a.input :street, label: "Rua:", input_html: { id: 'street' } %>
         <%= a.input :complement, label: "Complemento:" %>
-        <%= a.input :neighborhood, label: "Bairro:", wrapper_html: { id: 'bairro' } %>
-        <%= a.input :city, label: "Cidade:", wrapper_html: { id: 'cidade' } %>
-        <%= a.input :state, label: "Estado:", wrapper_html: { id: 'uf' } %>
+        <%= a.input :neighborhood, label: "Bairro:", input_html: { id: 'neighborhood' } %>
+        <%= a.input :city, label: "Cidade:", input_html: { id: 'city' } %>
+        <%= a.input :state, label: "Estado:", input_html: { id: 'state' } %>
       <% end %>
     </div>
   </div>
 </div>
+

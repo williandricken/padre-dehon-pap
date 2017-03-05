@@ -1,0 +1,198 @@
+doctype html
+html
+  head
+    title SysPadreDehon
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': true
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
+    = csrf_meta_tags
+
+
+
+
+
+
+
+
+
+  body.full-width
+    section#container.hr-menu
+      /! header start
+      header.header.fixed-top
+        .navbar-header
+          button.navbar-toggle.hr-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button"
+            span.fa.fa-bars
+          /! logo start
+          /! logo start
+          .brand
+            .logo
+              = image_tag("business_logo.png", size: '250x80')
+          /! logo end
+          /! logo end
+          .horizontal-menu.navbar-collapse.collapse
+            ul.nav.navbar-nav
+              li
+                a href=root_path  HOME
+              / li.active
+              /   a href="#"  Components
+              li.dropdown
+                a.dropdown-toggle data-hover="dropdown" data-toggle="dropdown" href="#"
+                  | Alunos
+                  b.fa.fa-angle-down
+                ul.dropdown-menu
+                  li
+                    a href="/students"  Lista de alunos
+                  li
+                    a href="buttons.html"  Buttons
+                  li
+                    a href="typography.html"  Typography
+                  li
+                    a href="font_awesome.html"  Font Awesome
+              li.dropdown
+                a.dropdown-toggle data-hover="dropdown" data-toggle="dropdown" href="#"
+                  | Responsáveis
+                  b.fa.fa-angle-down
+                ul.dropdown-menu
+                  li
+                    a href="/responsibles"  Lista de responsáveis
+                  li
+                    a href="buttons.html"  Buttons
+                  li
+                    a href="typography.html"  Typography
+                  li
+                    a href="font_awesome.html"  Font Awesome
+              li.dropdown
+                a.dropdown-toggle data-hover="dropdown" data-toggle="dropdown" href="#"
+                  | Funcionários
+                  b.fa.fa-angle-down
+                ul.dropdown-menu
+                  li
+                    a href="/employees"  Lista de funcionários
+                  li
+                    a href="buttons.html"  Buttons
+                  li
+                    a href="typography.html"  Typography
+                  li
+                    a href="font_awesome.html"  Font Awesome
+              / li
+              /   a href="basic_table.html"  Sample Menu
+              / li.dropdown
+              /   a.dropdown-toggle data-hover="dropdown" data-toggle="dropdown" href="#"
+              /     | Extra
+              /     b.fa.fa-angle-down
+              /   ul.dropdown-menu
+              /     li
+              /       a href="blank.html"  Blank Page
+              /     li
+              /       a href="boxed_page.html"  Boxed Page
+              /     li
+              /       a href="profile.html"  Profile
+              /     li
+              /       a href="404.html"  404 Error Page
+              /     li
+              /       a href="500.html"  500 Error Page
+          .top-nav.hr-top-nav
+            ul.nav.pull-right.top-menu
+              li
+                input.form-control.search placeholder=(" Search") type="text"
+              /! user login dropdown start
+              li.dropdown
+                a.dropdown-toggle data-toggle="dropdown" href="#"
+                  img alt="" src="images/avatar1_small.jpg"
+                  span.username John Doe
+                  b.caret
+                ul.dropdown-menu.extended.logout
+                  li
+                    a href="#"
+                      i.fa.fa-suitcase
+                      | Profile
+                  li
+                    a href="#"
+                      i.fa.fa-cog
+                      | Settings
+                  li
+                    a href="#"
+                      i.fa.fa-bell-o
+                      | Notification
+                  li
+                    a href="login.html"
+                      i.fa.fa-key
+                      | Log Out
+
+
+
+      section#main-content
+        section.wrapper
+          = yield
+
+
+
+      footer.footer-section
+        .text-center
+          | 2014 &copy; BucketAdmin by ThemeBucket
+          a.go-top href="#"
+            i.fa.fa-angle-up
+
+
+    .modal-backdrop.fade style="display: none;"
+
+
+
+
+
+
+    / body.background_image
+    /     p.notice = notice
+    /     p.alert = alert
+
+    /     .top-nav.clearfix
+    /         ul.nav.pull-right.top-menu
+    /             li.dropdown
+    /                 a.dropdown-toggle data-toggle="dropdown" href="#"
+    /                     span Alunos
+    /                     b class="caret"
+    /                 ul.dropdown-menu.extended.logout
+    /                     li
+    /                         a href="/students"
+    /                             i.fa.fa-suitcase Lista de alunos
+    /             li.dropdown
+    /                 a.dropdown-toggle data-toggle="dropdown" href="#"
+    /                     span Responsáveis
+    /                     b class="caret"
+    /                 ul.dropdown-menu.extended.logout
+    /                     li
+    /                         a href="/responsibles"
+    /                             i.fa.fa-suitcase Lista de responsáveis
+    /                     li
+    /                         a href="/responsibles/new"
+    /                             i.fa.fa-suitcase Novo responsável
+    /             li.dropdown
+    /                 a.dropdown-toggle data-toggle="dropdown" href="#"
+    /                     span Funcionários
+    /                     b class="caret"
+    /                 ul.dropdown-menu.extended.logout
+    /                     li
+    /                         a href="/employees"
+    /                             i.fa-cog Lista de funcionários
+    /                     li
+    /                         a href="/employees/new"
+    /                             i.fa-cog Novo funcionário
+    /             li
+    /                 .toggle-right-box
+    /                     .fa.fa-bars
+    /             li.dropdown
+    /                 a.dropdown-toggle data-toggle="dropdown" href="#"
+    /                     span.username batata
+    /                     b class="caret"
+    /                 ul.dropdown-menu.extended.logout
+    /                     = render 'devise/menu/login_items'
+    /                     li
+    /                         a href="#"
+    /                             i.fa.fa-suitcase Profile
+    /                     li
+    /                         a href="#"
+    /                             i.fa.fa-cog Settings
+    / .container
+    /     .col-md-12
+    /         section.panel
+    /             .position-center
+    /                 = yield

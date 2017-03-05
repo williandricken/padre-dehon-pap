@@ -1,0 +1,11 @@
+.container
+	section.panel
+		p#notice = notice
+
+		p
+		  strong Nome:
+		  = @disease.name 
+
+
+		= link_to 'Editar', edit_disease_path(@disease), class: "btn btn-round btn-warning"
+		= link_to 'Voltar', diseases_path, class: "btn btn-round btn-default"

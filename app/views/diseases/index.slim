@@ -1,0 +1,24 @@
+.container
+  section.panel
+    p#notice = notice
+
+    h1 Lista de doenças
+
+    table.table.table-hover
+      thead
+        tr
+          th Nome
+
+      tbody
+        - @diseases.each do |disease| 
+          tr
+            td = disease.name
+           
+            td = link_to 'Exibir', disease, class: "btn btn-round btn-primary"
+            td = link_to 'Editar', edit_disease_path(disease), class: "btn btn-round btn-warning"
+            td = link_to 'Desativar', disease, class: "btn btn-round btn-danger", method: :delete, data: { confirm: 'Deseja desativar esta doença?' }
+
+    br
+
+    = link_to 'Nova doença', new_disease_path, class: "btn btn-round btn-success btn-lg"
+

@@ -1,0 +1,26 @@
+body.login-body
+  .form-signin
+    h2.form-signin-heading Log In
+    .login-wrap
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
+          .user-login-info
+              .form-control
+                = f.label :email
+                = f.email_field :email, placeholder: "User ID" , autofocus: true 
+              .form-control
+                = f.label :password
+                = f.password_field :password, placeholder: "Password", autocomplete: "off" 
+          label.checkbox
+              - if devise_mapping.rememberable?
+                  = f.check_box :remember_me, class: "checkbox" 
+                  = f.label :remember_me 
+              span.pull-right
+                  = render "devise/shared/links"
+          = f.submit "Log in", class: "btn btn-lg btn-login btn-block" 
+
+               
+
+               
+
+           
+

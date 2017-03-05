@@ -1,0 +1,6 @@
+.container
+	section.panel
+		h1 Editando doença #{@disease.name}
+		= render 'form'
+		= link_to 'Exibir doença', @disease, class: "btn btn-info"
+		= link_to 'Voltar', diseases_path, class: "btn btn-default"

@@ -1,0 +1,92 @@
+p#notice = notice
+
+p
+  strong Nome: 
+  = @student.name
+
+p
+  strong Data de nascimento: 
+  = @student.birth_date
+
+p
+  strong Cidade de nascimento: 
+  = @student.place_of_birth 
+
+p
+  strong Ano letivo: 
+  = @student.school_year 
+
+p
+  strong Data de início: 
+  = @student.start_date 
+
+p
+  strong Estado: 
+  = @student.state 
+br
+
+p
+  strong Ficha médica:
+  br
+  - if @student.medic_info.present? 
+     p 
+      strong Doenças:
+      - @student.medic_info.diseases.each do |d|
+        p 
+        = d.name
+
+  p 
+    strong Cirurgia? 
+    = @student.medic_info.surgery 
+  
+  p
+    strong Tratamento? 
+    = @student.medic_info.treatment
+  
+  p
+    strong Alérgico? 
+    = @student.medic_info.allergic
+  
+  p  
+    strong Intolerante? 
+    = @student.medic_info.intolerant
+
+  p    
+    strong Peso: 
+    = @student.medic_info.weight
+
+  p
+    strong Altura: 
+    = @student.medic_info.height
+
+  p
+    strong IMC: 
+    = @student.medic_info.bmi
+
+p
+  strong Comportamentos: 
+  - @student.behaviors.each do |sb|
+    = sb.description 
+    = sb.description === @student.behaviors.last.description ? "." : ", " 
+
+  - if @student.another_behavior.present? 
+    p
+      strong Outro comportamento:
+      = @student.another_behavior
+
+p
+  strong Responsáveis:
+  - @student.responsibles.each do |r|
+    p 
+      strong Nome: 
+      = r.name  
+    p 
+      strong RG: 
+      = r.rg  
+    p 
+      strong CPF: 
+      = r.cpf  
+    = link_to 'Mais informações deste responsável', r, class: "btn btn-info"  
+
+= link_to 'Editar', edit_student_path(@student), class: "btn btn-round btn-warning" 
+= link_to 'Voltar', students_path, class: "btn btn-round btn-default" 

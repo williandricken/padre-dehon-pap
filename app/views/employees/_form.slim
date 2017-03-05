@@ -1,0 +1,19 @@
+= simple_form_for(@employee, html: { class: 'form-vertical' }) do |f|
+  = f.input :name, label: "Nome:"
+  = f.input :age, label: "Idade:"
+  = f.input :schooling, label: "Escolaridade:"
+  = f.input :job, label: "Função:", collection: EmployeesHelper::JOBS
+
+  = f.simple_fields_for :user do |fu|
+      = fu.input :email, label: "Email de login:"
+      = fu.input :password, label: "Senha:"
+
+      = fu.simple_fields_for :addresses do |a|
+        = a.input :zipcode, label: "CEP:", input_html: { id: 'zipcode' }
+        = a.input :street, label: "Rua:", input_html: { id: 'street' }
+        = a.input :complement, label: "Complemento:"
+        = a.input :neighborhood, label: "Bairro:", input_html: { id: 'neighborhood' }
+        = a.input :city, label: "Cidade:", input_html: { id: 'city' }
+        = a.input :state, label: "Estado:", input_html: { id: 'state' }
+
+  = f.button :submit, "Cadastrar funcionário",  class: "btn btn-round btn-success"

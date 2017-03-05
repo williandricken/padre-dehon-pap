@@ -1,0 +1,20 @@
+p#notice = notice
+
+p
+  strong Nome: 
+  = @employee.name
+
+p
+  strong Idade: 
+  = @employee.age
+
+p
+  strong Escolaridade: 
+  = @employee.schooling 
+
+p
+  strong Função: 
+  = @employee.job
+
+= link_to 'Editar', edit_employee_path(@employee), class: "btn btn-round btn-warning" 
+= link_to 'Voltar', employees_path, class: "btn btn-round btn-default"  

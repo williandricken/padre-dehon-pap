@@ -1,0 +1,4 @@
+h1 Editando funcionário #{@employee.name}
+= render 'form'
+= link_to 'Exibir funcionário', @employee, class: "btn btn-info"
+= link_to 'Voltar', employees_path, class: "btn btn-default"

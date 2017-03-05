@@ -1,0 +1,74 @@
+= simple_form_for(@student, html: { class: 'form-vertical' }) do |f| 
+  /!  f.hidden_field #:responsible, #value: @responsible.id
+
+
+  = f.input :school_year, label: "Ano letivo:", collection: (Time.now.year - 3)..(Time.now.year + 3), selected: Time.now.year 
+  = f.input :start_date, label:"Ano letivo da primeira matricula:" 
+  = f.input :name, label: "Nome:" 
+  = f.input :birth_date, label: "Data de nascimento:" 
+  = f.input :gender, label: 'Gênero:', collection: [ ['M', 'Masculino' ], ['F', 'Feminino'] ], as: :radio_buttons, label_method: :last, value_method: :first, checked: @student.gender, item_wrapper_class: :inline, input_html: {class: "form-horizontal"} 
+
+  = f.input :place_of_birth, label: "Cidade onde nasceu:"
+  = f.input :state, label: "Estados:", collection: StudentsHelper::ESTADOS_BRASILEIROS, selected: "PR" 
+
+
+
+  - f.simple_fields_for :medic_info do |fm| 
+    = fm.association :diseases, label:"Assinale as doenças que a criança já teve:", collection: Disease.all, as: :check_boxes 
+    = fm.input :surgery, label: "Submeteu-se a intervenções cirúrgicas?"  
+    = fm.input :treatment, label: "Faz tratamento de saúde? Qual?"  
+    = fm.input :allergic, label: "É alérgico há algum medicamento? Qual?"  
+    = fm.input :intolerant , label: "Tem restrição/intolerância alimentar? Qual?" 
+    = fm.input :weight , label: "Peso: " 
+    = fm.input :height , label: "Altura: "
+
+
+
+  = f.association :behaviors, label: "Defina a criança quanto a seu temperamento:", collection: Behavior.all, as: :check_boxes, label_method: :description, input_html: {class: "form-horizontal"} 
+  = f.input :another_behavior, label: "Outros:" 
+
+
+  = f.button :submit, "Matricular aluno",  class: "btn btn-success"
+
+
+
+.row
+    .col-md-6
+        form.form-horizontal.bucket-form method="get"
+            .form-group
+                label.col-sm-3.control-label Radio
+
+                .col-sm-9.icheck
+
+                    .minimal.single-row
+                        .radio
+                            input tabindex="3" type="radio"  name="demo-radio"
+                            label Black Radio 
+                         
+                    .minimal-red.single-row
+                        .radio
+                            input tabindex="3" type="radio"  name="demo-radio"
+                            label Red Radio 
+                        
+
+    .col-md-6
+        form.form-horizontal.bucket-form method="get"
+            .form-group
+                label.col-sm-3.control-label Radio
+
+                .col-sm-9.icheck
+
+                    .square.single-row
+                        .radio
+                            input tabindex="3" type="radio"  name="demo-radio"
+                            labelBlack Radio 
+                        
+                    .square-red.single-row
+                        .radio
+                            input tabindex="3" type="radio"  name="demo-radio"
+                            labelRed Radio 
+                        
+                    .square-purple.single-row
+                        .radio
+                            input tabindex="3" type="radio"  name="demo-radio"
+                            labelPurple Radio

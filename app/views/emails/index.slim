@@ -1,0 +1,50 @@
+table.table.table-bordered
+  thead
+    tr
+      th colspan="4" style="text-align:center"  Lista de Templates
+  tbody
+    - @templates.each do |template|
+      tr
+        td = template['name']
+        td = template['versions'].last['subject']
+        td
+          button.get-template data-temp-id=template['id']  Preview
+
+header.panel-heading.wht-bg
+  h4.gen-case Escreva sua mensagem:
+  .panel-body
+    .compose-mail
+      = simple_form_for(@email, url: emails_path, method: :post) do |f|
+        .form-group
+          = f.input :to, label: "Para:", input_html: { id: 'to', class: "form-control" }
+
+          .compose-options
+            a onclick="$(this).hide(); $('#cc').parent().removeClass('hidden'); $('#cc').focus();" href="javascript:;" Cc
+            a onclick="$(this).hide(); $('#bcc').parent().removeClass('hidden'); $('#bcc').focus();" href="javascript:;" Bcc
+
+        .form-group.hidden
+          label for="cc" CC:
+          input.form-control type="text" tabindex="2" id="cc"
+        .form-group.hidden
+          label for="bcc" BCC:
+          input.form-control type="text" tabindex="2" id="bcc"
+        .form-group
+          = f.input :subject, label: "Assunto:", input_html: { id: 'subject', class: "form-control" }
+        .compose-editor
+          = f.input :content, label: "Mensagem:", as: :text, input_html: { id: 'subject', class: "wysihtml5 form-control", rows: "9" }
+        input.default type="file"
+        .form-group
+          = f.input :template_id, label: "Template:", collection: @templates.map {|template| [template['name'], template['id']]}, as: :radio_buttons
+        .form-group
+          = f.button :submit, "Enviar email", class: "btn btn-primary btn-lg btn-block"
+
+
+/! The Modal
+#myModal.modal
+  /! Modal content
+  .modal-content
+    .modal-header
+      span.close &times
+      h2 Preview do Email
+    .modal-body.email-template
+    .modal-footer
