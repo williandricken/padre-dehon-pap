@@ -3,7 +3,7 @@ class TransactionalEmail
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :to, :from, :subject, :content, :template_id
+  attr_accessor :to, :subject, :content, :template_id
       #:title, substitutions: []
 
   # validates :whatever, :presence => true
