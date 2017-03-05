@@ -25,7 +25,7 @@ module PadreDehonPap
 
     ActionMailer::Base.smtp_settings = {
 
-        :user_name => 'williandricken',
+        :user_name => 'willianpap',
         :password => 'wdr3106574',
         :domain => 'yourdomain.com',
         :address => 'smtp.sendgrid.net',
