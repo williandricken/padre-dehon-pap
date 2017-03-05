@@ -30,10 +30,12 @@ class ResponsiblesController < ApplicationController
   # POST /responsibles.json
   def create
     @responsible = Responsible.new(responsible_params)
+    @responsible.user.email.downcase!
 
     respond_to do |format|
       if @responsible.save
-        ResponsibleMailer.responsible_created(@responsible).deliver_now
+        ResponsibleMailer.responsible_welcome_email(@responsible).deliver_now
+        # ResponsibleMailer.delay_for(1.hour).responsible_welcome_email(@responsible.id)
         #ResponsibleMailer.
         #SMS.new('+554195222433').send
         format.html { redirect_to @responsible, notice: 'Responsible was successfully created.' }

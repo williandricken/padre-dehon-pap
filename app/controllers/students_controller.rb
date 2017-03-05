@@ -10,11 +10,15 @@ class StudentsController < ApplicationController
 
   # GET /students/1
   # GET /students/1.json
-  def show  
+  def show
+    respond_to do |format|
+      format.js { render 'quick_info', layout: nil }
+      format.html {}
+    end
   end
 
   def quick_info
-    "chegou na function" + params[:id]
+    # @student = Student.find(params[:id])
   end
 
   # GET /students/new
@@ -76,8 +80,8 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name, :birth_date, :place_of_birth, :school_year, 
-        :start_date, :state, :another_behavior, behavior_ids: [], medic_info_attributes: [:surgery,
+      params.require(:student).permit(:name, :birth_date, :place_of_birth, :school_year,
+        :start_date, :state, :gender, :another_behavior, behavior_ids: [], medic_info_attributes: [:surgery,
         :treatment, :allergic, :intolerant, disease_ids: []])
     end
 

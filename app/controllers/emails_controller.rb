@@ -1,21 +1,12 @@
 class EmailsController < ApplicationController
-  include SendGridMailer
+
   def index
-      @templates = get_all_templates
-
-      # @campaign = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
-      # title: "", segment_ids: [],   categories: ["tes","tsss"], lists: [553385]}
-      # @email = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
-      # title: "", categories: "", list: 553385}
-
-      # attr_accessor :to, :from, :content, :template_id, :subject,
-      # :title, substitutions: []
-
+      @templates = SendGridMailer::Template.all
       @email = TransactionalEmail.new
   end
-  
+
   def template
-      render html: get_template(params[:id]).html_safe
+      render html: SendGridMailer::Template.find(params[:id]).html_safe
   end
 
   def create
@@ -23,13 +14,8 @@ class EmailsController < ApplicationController
     @email = TransactionalEmail.new(transactional_email_params)
     @respon = Responsible.last
 
-    #para cada item na lista de email, chamar esse metodo? quem deveria controlar isso?
-    ResponsibleMailer.send_email(@email, @respon)
-
-    # send_email_form(@email)
-
     respond_to do |format|
-      if send_email_form(@email)
+      if ResponsibleMailer.send_email_form(@email) #, @respon)
         format.html { redirect_to :root, notice: 'foi carai' }
         #format.json { render :index, status: :created, location: @student }
       else
@@ -37,8 +23,43 @@ class EmailsController < ApplicationController
         #format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
+  end
 
-    #raise @email.to_json
+  private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def transactional_email_params
+      params.require(:transactional_email).permit(:to, :subject, :content, :template_id)
+    end
+end
+# @campaign = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
+      # title: "", segment_ids: [],   categories: ["tes","tsss"], lists: [553385]}
+      # @email = {plain_email_content: "", email_content: "", sender_id: 61578, subject: "",
+      # title: "", categories: "", list: 553385}
+
+      # attr_accessor :to, :from, :content, :template_id, :subject,
+      # :title, substitutions: []
+  # def subscribe
+
+  #   list_id = "51c1564989"
+
+  #   res = Responsible.last
+
+
+  #   Gibbon::Request.new.lists(list_id).members.create(body:
+  #                                                     {email_address: res.user.email, status: "subscribed",
+  #                                                      merge_fields: {NAME: res.name,
+  #                                                                     PASSWORD: res.cpf,
+  #                                                                     AGE: 20}})
+
+  #   render :index
+  # rescue Gibbon::MailChimpError => e
+  #   if e.title == "Member Exists"
+  #     flash[:info] = "Membro já cadastrado!!!"
+  #   end
+  #   render :index
+  # end
+  #raise @email.to_json
 
     #flash[@email]
 
@@ -64,34 +85,3 @@ class EmailsController < ApplicationController
     #   "suppression_group_id": 42,
     #   "title": "March Newsletter"
     # }')
-  end
-
-  private   
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def transactional_email_params
-      params.require(:transactional_email).permit(:to, :from, :subject, :content, :template_id)
-    end
-
-  # def subscribe
-
-  #   list_id = "51c1564989"
-
-  #   res = Responsible.last
-
-
-  #   Gibbon::Request.new.lists(list_id).members.create(body:
-  #                                                     {email_address: res.user.email, status: "subscribed",
-  #                                                      merge_fields: {NAME: res.name,
-  #                                                                     PASSWORD: res.cpf,
-  #                                                                     AGE: 20}})
-
-  #   render :index
-  # rescue Gibbon::MailChimpError => e
-  #   if e.title == "Member Exists"
-  #     flash[:info] = "Membro já cadastrado!!!"
-  #   end
-  #   render :index
-  # end
-
-end
