@@ -1,5 +1,4 @@
-$(document).ready(function(){
-
+$('document').ready(function(){
     $('.get-template').on('click', function (e) {
         $('body').addClass('is-modal-open');
         var id = $(this).data('temp-id');
@@ -20,6 +19,24 @@ $(document).ready(function(){
         })
     })
 })
+
+var $modal = $('#myModal')
+  , $modalMask = $('.modal-backdrop');
+
+$modal.addClass('in').show();
+$modalMask.addClass('in').show();
+
+$('.close-modal').on('click', function() {
+    $modal.hide();
+    $modalMask.hide();
+});
+
+window.onclick = function(event) {
+  if ($(event.target).attr('id') == $modal.attr('id')) {
+      $modal.hide();
+      $modalMask.hide();
+  }
+}
 
 
 // // Get the modal
