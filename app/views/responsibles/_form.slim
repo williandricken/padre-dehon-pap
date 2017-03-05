@@ -1,11 +1,19 @@
-= simple_form_for(@responsible, html: { class: 'form-vertical' }) do |f| 
-  = f.input :name, label: "Nome:" 
-  = f.input :rg, label: "R.G:" 
+= simple_form_for(@responsible, html: { class: 'form-vertical' }) do |f|
+  = f.input :name, label: "Nome:"
+  = f.input :rg, label: "R.G:"
   = f.input :cpf, label: "C.P.F:"
-  = f.input :schooling, label: "Escolaridade:" 
+  = f.input :schooling, label: "Escolaridade:", collection: ResponsiblesHelper::SCHOOLING
 
-  - f.simple_fields_for :user do |fu| 
-      = fu.input :email, as: :email, label: "Email de login:"  
-      = fu.input :password, as: :password, label: "Senha:" 
- 
-  = f.button :submit, "Cadastrar responsável",  class: "btn btn-round btn-success"  
+  = f.simple_fields_for :user do |fu|
+      = fu.input :email, as: :email, label: "Email de login:"
+      = fu.input :password, as: :password, label: "Senha:"
+
+      = fu.simple_fields_for :addresses do |a|
+        = a.input :zipcode, label: "CEP:", input_html: { id: 'zipcode' }
+        = a.input :street, label: "Rua:", input_html: { id: 'street' }
+        = a.input :complement, label: "Complemento:"
+        = a.input :neighborhood, label: "Bairro:", input_html: { id: 'neighborhood' }
+        = a.input :city, label: "Cidade:", input_html: { id: 'city' }
+        = a.input :state, label: "Estado:", input_html: { id: 'state' }
+
+  = f.button :submit, "Cadastrar responsável",  class: "btn btn-round btn-success"

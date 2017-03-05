@@ -1,12 +1,12 @@
 = simple_form_for(@employee, html: { class: 'form-vertical' }) do |f|
   = f.input :name, label: "Nome:"
   = f.input :age, label: "Idade:"
-  = f.input :schooling, label: "Escolaridade:"
+  = f.input :schooling, label: "Escolaridade:", collection: EmployeesHelper::SCHOOLING
   = f.input :job, label: "Função:", collection: EmployeesHelper::JOBS
 
   = f.simple_fields_for :user do |fu|
-      = fu.input :email, label: "Email de login:"
-      = fu.input :password, label: "Senha:"
+      = fu.input :email, as: :email, label: "Email de login:"
+      = fu.input :password, as: :password, label: "Senha:"
 
       = fu.simple_fields_for :addresses do |a|
         = a.input :zipcode, label: "CEP:", input_html: { id: 'zipcode' }

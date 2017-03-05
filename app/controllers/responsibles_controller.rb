@@ -19,6 +19,7 @@ class ResponsiblesController < ApplicationController
   def new
     @responsible = Responsible.new
     @responsible.user = User.new
+    @responsible.user.addresses << Address.new
     @responsible.students = Array.new
   end
 
@@ -79,6 +80,7 @@ class ResponsiblesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def responsible_params
-      params.require(:responsible).permit(:name, :rg, :cpf, :schooling, user_attributes: [:email, :password])
+      params.require(:responsible).permit(:name, :rg, :cpf, :schooling, user_attributes: [:email, :password,
+        addresses_attributes: [[:zipcode, :street, :complement, :neighborhood, :city, :state]]])
     end
 end
